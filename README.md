@@ -149,13 +149,16 @@ Em caso de **falha** um status code apropriado será retornado explicando o moti
 
 #### `PUT /cliente/id`
 
-Esta rota será utilizada para atualizar os dados de um cliente cadastrado.
+Esta rota será utilizada para atualizar os dados de uma pessoa cadastrada.
 Para tal, será necessário enviar no corpo da requisição os dados que devem ser atualizados em formato JSON.
 
 ```python
 {
- - nome
- - cnpj ou cpf
+ - nome: String
+ - endereco: String
+ - cpf: Int
+ - rg: Int
+ - data_nascimento: String (Formato DD-MM-AAAA)
 }
 ```
 
