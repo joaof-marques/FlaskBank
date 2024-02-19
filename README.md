@@ -176,8 +176,8 @@ Para tal, será necessário enviar no corpo da requisição os seguintes dados:
 
 ```python
 {
-  - id_conta_destino
-  - valor
+  - id_conta_destino: Int
+  - valor: Float
 }
 ```
 
@@ -196,8 +196,8 @@ Para tal, será necessário enviar no corpo da requisição os seguintes dados:
 
 ```python
 {
-  - id_conta_destino
-  - valor
+  - id_conta_destino: Int
+  - valor: Float
 }
 ```
 
@@ -216,7 +216,7 @@ Para tal, será necessário enviar no corpo da requisição os seguintes dados:
 
 ```python
 {
-  - valor
+  - valor: Float
 }
 ```
 
