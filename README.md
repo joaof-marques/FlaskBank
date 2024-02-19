@@ -7,6 +7,8 @@ O projeto consiste em uma API REST feita em Python utilizando o framework Flask 
 Nessa aplicação estão disponíveis os seguintes endpoints:
 
 - Cadastrar Cliente
+- Cadastrar Agência
+- Listar agências cadastradas
 - Detalhar Perfil do Cliente
 - Editar Perfil do Cliente
 - Realizar depósito
@@ -17,7 +19,7 @@ Nessa aplicação estão disponíveis os seguintes endpoints:
 - Listar depósitos realizados
 - Visualizar extrato completo
 
-
+### ** O Objetivo desta API é praticar Modelagem de dados, Orientação à objetos, Banco de dados e modularização. Por este motivo, não foram implementados login, token de sessão, validação de nível de acesso e outras medidas de segurança. **
 ** Importante: O formato escolhido para retorno dos endpoints foi JSON, quando houver retorno**
 
 **- Esta aplicação utiliza um banco de dados hospedado no ElephantSQL -**
@@ -26,6 +28,19 @@ Nessa aplicação estão disponíveis os seguintes endpoints:
 
 
 As entidades deste projeto são:
+
+- Pessoa
+    - Nome: String
+    - Endereço: String
+    - CPF: Int
+    - RG: Int
+    - Data Nascimento: Date
+
+- Agência
+    - Nome: String
+    - Endereço: String
+    - CNPJ: Int
+    - Gerente: String
 
 - Conta:
     - Nome: String
@@ -75,17 +90,50 @@ Esta rota será utilizada para cadastrar novos clientes.
 Para tal, será necessário enviar no corpo da requisição os seguintes dados:
 
 ```python
-#{
-#  - nome: String
-#  - tipo_conta: String ("PJ" ou "PF")
-#  - CNPJ ou CPF: int
-#}
+{
+  - nome: String
+  - endereco: String
+  - CPF: Int
+  - RG: Int
+  - data_nascimento: String (Formato DD-MM-AAAA)
+  - CNPJ: Int (Caso seja conta Pessoa Jurídica)
+}
 ```
 
 **Resposta**
 Em caso de **sucesso**, a aplicação retornará no corpo da resposta um detalhamento da conta criada (Nome, CPF ou CNPJ, Saldo, Histórico de Transações, Histórico de Saques, Histórico de Depósitos).
 Em caso de **falha** um status code apropriado será retornado explicando o motivo da falha.
 
+
+### **Cadastrar Agência**
+
+#### `Post /agencia`
+
+Esta rota será utilizada para cadastrar novas agências.
+Para tal, será necessário enviar no corpo da requisição os seguintes dados:
+
+```python
+{
+  - nome: String
+  - endereco: String
+  - CNPJ: Int
+  - gerente: String
+}
+```
+
+**Resposta**
+Em caso de **sucesso**, a aplicação retornará no corpo da resposta um detalhamento da agência criada (Nome, CNPJ, Endereço e Nome do Gerente).
+Em caso de **falha** um status code apropriado será retornado explicando o motivo da falha.
+
+### **Listar Agências Cadastradas**
+
+#### `GET /agencia`
+
+Esta rota será utilizada para visualizar as agências cadastradas.
+
+**Resposta**
+Em caso de **sucesso**, a aplicação retornará no corpo da resposta um JSON contendo a lista de agências cadastradas.
+Em caso de **falha** um status code apropriado será retornado explicando o motivo da falha.
 
 ### *** Detalhar Perfil do Cliente ***
 
@@ -105,10 +153,10 @@ Esta rota será utilizada para atualizar os dados de um cliente cadastrado.
 Para tal, será necessário enviar no corpo da requisição os dados que devem ser atualizados em formato JSON.
 
 ```python
-#{
-# - nome
-# - cnpj ou cpf
-#}
+{
+ - nome
+ - cnpj ou cpf
+}
 ```
 
 **Resposta**
@@ -124,10 +172,10 @@ Para tal, será necessário enviar no corpo da requisição os seguintes dados:
 
 
 ```python
-#{
-#  - id_conta_destino
-#  - valor
-#}
+{
+  - id_conta_destino
+  - valor
+}
 ```
 
 
@@ -144,10 +192,10 @@ Para tal, será necessário enviar no corpo da requisição os seguintes dados:
 
 
 ```python
-#{
-#  - id_conta_destino
-#  - valor
-#}
+{
+  - id_conta_destino
+  - valor
+}
 ```
 
 
@@ -164,9 +212,9 @@ Para tal, será necessário enviar no corpo da requisição os seguintes dados:
 
 
 ```python
-#{
-#  - valor
-#}
+{
+  - valor
+}
 ```
 
 **Resposta**
